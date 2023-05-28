@@ -37,8 +37,16 @@
                     <td>{{ $product->updated_at }}</td>
                     <td>
                         <div class="action-buttons d-flex gap-1 justify-content-center">
-                            <a href="{{ route('products.show', ['product' => $product->id]) }}" class="btn btn-success btn-sm btn-show" title="{{ __('messages.show') }}" data-id="{{ $product->id }}" ><i class="fas fa-eye"></i></a>
-                            <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="btn btn-primary btn-sm btn-update" title="{{ __('messages.edit') }}" ><i class="fas fa-pencil"></i></a>
+                            <a
+                                href="{{ route('products.show', ['product' => $product->id]) }}"
+                                class="btn btn-success btn-sm btn-show"
+                                title="{{ __('messages.show') }}"
+                                data-route="{{ route('products.show-ajax', ['product' => $product->id]) }}"
+                            ><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('products.edit', ['product' => $product->id]) }}"
+                               class="btn btn-primary btn-sm btn-update"
+                               title="{{ __('messages.edit') }}"
+                            ><i class="fas fa-pencil"></i></a>
                             <form method="POST" action="{{ route('products.destroy', ['product' => $product->id]) }}">
                                 @method('DELETE')
                                 @csrf
@@ -83,9 +91,9 @@
 
             function showProduct(e) {
                 e.preventDefault();
-                const productID = e.currentTarget.getAttribute('data-id');
+                const route = e.currentTarget.getAttribute('data-route');
 
-                $.get(`products/${productID}/show-ajax`, function(res) {
+                $.get(route, function(res) {
                     const modal = $('#product-show');
                     modal.find('.modal-body').html(res);
                     modal.modal('show');

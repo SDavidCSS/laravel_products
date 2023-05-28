@@ -34,6 +34,8 @@ Route::controller(AuthController::class)->group(function() {
 Route::resource('products', ProductController::class)
     ->except('index')
     ->middleware('auth');
-Route::get('/products/{product}/show-ajax', [ProductController::class, 'showAjax'])->middleware('auth');
+Route::get('/products/{product}/show-ajax', [ProductController::class, 'showAjax'])
+    ->middleware('auth')
+    ->name('products.show-ajax');
 
 Route::get('/language/change/{locale}', [LanguageController::class, 'change'])->name('language.change');

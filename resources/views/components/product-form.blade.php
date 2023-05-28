@@ -18,8 +18,7 @@
     <textarea
         name="description"
         id="description"
-        class="form-control @error('description') is-invalid @enderror">{{ old('description', $isNewRecord ? '' : $product->description) }}
-    </textarea>
+        class="form-control @error('description') is-invalid @enderror">{{ old('description', $isNewRecord ? '' : $product->description) }}</textarea>
     @error('description')
     <div class="invalid-feedback">{{ $message }}</div>
     @enderror
