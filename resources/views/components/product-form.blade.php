@@ -26,7 +26,12 @@
     <label for="categories" class="form-label fw-bold">{{ __('messages.categories') }}</label>
     <select name="categories[]" id="categories" class="form-control form-select" multiple>
         @foreach($categories as $category)
-            <option value="{{ $category->id }}" @selected($isNewRecord ? in_array($category->id, old('categories', [])) : in_array($category->id, $attachedCategories))>{{ $category->name }}</option>
+            <option
+                value="{{ $category->id }}"
+                @selected(in_array($category->id, old('categories', [])) || (!$isNewRecord && in_array($category->id, $attachedCategories)))
+            >
+                {{ $category->name }}
+            </option>
         @endforeach
     </select>
 </form>
